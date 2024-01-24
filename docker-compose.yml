@@ -1,0 +1,28 @@
+version: '3'
+services:
+  paradise-api:
+    build: .
+    ports:
+      - "8080:80"
+      - "9000:9000"  # Xdebug
+    volumes:
+      - .:/var/www/html # persistance for dev
+    networks:
+      - paradise-network
+  
+  paradise-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: paradise-db
+      MYSQL_USER: calin
+      MYSQL_PASSWORD: example
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+    networks:
+      - paradise-network
+
+networks:
+  paradise-network:

@@ -1,0 +1,22 @@
+{
+    "name": "valentin/paradise-api",
+    "description": "RESTful API for interactive management of animals in a zoo",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Api\\": "src/Api/"
+        }
+    },
+    "authors": [
+        {
+            "name": "LeNelSoN",
+            "email": "nelis.valentin@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-pdo_mysql": "*"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}
