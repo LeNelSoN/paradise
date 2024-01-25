@@ -11,9 +11,9 @@ class HelloController
     /**
      * @return 'Hello, World!'
      */
-    public static function hello(): Response
+    public function hello()
     {
         $response = ['message' => 'Hello, World!'];
-        return Response::sendJson($response);
+        Response::sendJson($response);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-$vendorDir = '/var/www/html/vendor/autoload.php';
-require $vendorDir; // Composer autoload
+require_once '/var/www/html/vendor/autoload.php'; // Composer autoload
 
 use Api\Application;
+
 $app = new Application();
 $app->run();

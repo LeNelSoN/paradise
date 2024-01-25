@@ -42,4 +42,27 @@ final class AnimalService extends DAO
 
         return $animals;
     }
+
+    public function getOne(String $id): Animal
+    {
+        $query = "SELECT * FROM animal WHERE Id = ?";
+        $statement = $this->getPDO()->prepare($query);
+
+        $statement->bindParam(1, $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        $animalData = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if (isset($animalData)) {
+            $animal = new Animal(
+                $animalData['Id'],
+                $animalData['name'],
+                $animalData['specie'],
+                $animalData['birthday'],
+                $animalData['description']
+            );
+        }
+
+        return $animal;
+    }
 }

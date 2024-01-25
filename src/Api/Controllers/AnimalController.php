@@ -8,14 +8,23 @@ use Api\DTO\AnimalDTO;
 
 class AnimalController
 {
-    private $animalService;
+    private AnimalService $animalService;
 
     public function __construct()
     {
         $this->animalService = new AnimalService();
     }
 
-    public function getAnimals(): void
+    public function handlerAnimal(String $method, String $id): void
+    {
+        switch ($method) {
+            case 'GET':
+                $id == null ? $this->getAnimals(): $this->getOneAnimal($id);
+                break;
+        }
+    }
+
+    private function getAnimals(): void
     {
         $animals = $this->animalService->getAll();
         $animalsDTO = [];
@@ -25,5 +34,13 @@ class AnimalController
         }
 
         Response::sendJson($animalsDTO);
+    }
+
+    private function getOneAnimal(String $id): void
+    {
+        $animal = $this->animalService->getOne($id);
+        $animalDTO = AnimalDTO::animalToDTO($animal);
+
+        Response::sendJson($animalDTO);
     }
 }
