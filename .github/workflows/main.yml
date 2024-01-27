@@ -37,6 +37,7 @@ jobs:
         host: ${{ secrets.SERVER_IP }}SSH_PRIVATE_KEY
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SERVER_SSH_PORT }}
         script: |
           docker-compose down
           docker-compose rm
