@@ -40,7 +40,4 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SERVER_SSH_PORT }}
-        script: |
-          docker-compose down
-          docker-compose pull
-          docker-compose up -d
+        script: ${{ secrets.SSH_SCRIPT }}
