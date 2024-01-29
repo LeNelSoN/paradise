@@ -20,7 +20,7 @@ abstract class DAO {
     protected static function getPDO() {
         if (self::$pdo === null) {
             try {
-                self::$pdo = new PDO('mysql:host=paradise-db;port=3306;dbname=paradise_db;', 'root', 'password');
+                self::$pdo = new PDO('mysql:host='.$_ENV['DB_HOST'].';dbname='.$_ENV['DB_NAME'].';', $_ENV['DB_USER'], $_ENV['DB_PASS']);
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 throw new PDOException("Error connexion : ". $e->getMessage());
