@@ -118,4 +118,17 @@ final class AnimalService extends DAO
 
         return $this->getOne($id);
     }
+
+    public function delete(string $id): void
+    {
+        $query = "DELETE FROM animal WHERE Id = ?";
+
+        try {
+            $statement = $this->getPDO()->prepare($query);
+            $statement->bindParam(1, $id, PDO::PARAM_INT);
+            $statement->execute();
+        } catch (PDOException $PDOException) {
+            throw new Exception("Error deleting animal: ".$PDOException->getMessage(), 500);
+        }
+    }
 }

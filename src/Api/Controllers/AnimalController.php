@@ -36,6 +36,13 @@ class AnimalController
                     throw new Exception("Invalid data provided for updating animal", 400);
                 }
                 break;
+            case 'DELETE':
+                if($id != null){
+                    $this->deleteOneAnimal($id);
+                } else {
+                    throw new Exception("Invalid data provided for deleting animal", 400);
+                }
+                break;
         }
     }
 
@@ -83,5 +90,11 @@ class AnimalController
         } else {
             throw new Exception("Invalid data provided for updating animal", 400);
         }
+    }
+
+    private function deleteOneAnimal(String $id) : void {
+        $this->animalService->delete($id);
+        $message = ["message" => "Animal with id $id deleted successfully"];
+        Response::sendJson($message, 200);
     }
 }
