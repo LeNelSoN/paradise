@@ -5,6 +5,7 @@ use PDO;
 use Api\Services\DAO;
 use Api\Models\Animal;
 use PDOException;
+use Exception;
 
 final class AnimalService extends DAO
 {
@@ -52,23 +53,26 @@ final class AnimalService extends DAO
     public function getOne(String $id): Animal
     {
         $query = "SELECT * FROM animal WHERE Id = ?";
-        $statement = $this->getPDO()->prepare($query);
-
-        $statement->bindParam(1, $id, PDO::PARAM_INT);
-        $statement->execute();
+        try {
+            $statement = $this->getPDO()->prepare($query);
+            $statement->bindParam(1, $id, PDO::PARAM_INT);
+            $statement->execute();
+        } catch (PDOException $PDOException) {
+            throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+        }
 
         $animalData = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if (isset($animalData)) {
-            $animal = new Animal(
+        if ($animalData) {
+            return new Animal(
                 $animalData['Id'],
                 $animalData['name'],
                 $animalData['specie'],
                 $animalData['birthday'],
                 $animalData['description']
             );
+        } else {
+            throw new Exception("Animal not found", 404);
         }
-
-        return $animal;
     }
 }

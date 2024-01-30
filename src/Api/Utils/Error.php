@@ -14,7 +14,7 @@ class Error {
     public static function handleException($exception)
     {
         $statusCode = $exception->getCode() ?: 500;
-        $response = ['error : ' => $exception->getMessage()];
+        $response = ['error' => $exception->getMessage()];
         Response::sendJson($response, $statusCode);
     }
 }
