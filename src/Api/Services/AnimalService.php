@@ -97,4 +97,25 @@ final class AnimalService extends DAO
         $lastInsertId = $this->getPDO()->lastInsertId();
         return $this->getOne($lastInsertId);
     }
+
+    public function update(string $id, string $name, string $specie, string $birthday, string $description = ""): Animal
+    {
+        $formattedBirthday = (new DateTime(str_replace('/', '-', $birthday)))->format('Y-m-d');
+
+        $query = "UPDATE animal SET name = ?, specie = ?, birthday = ?, description = ? WHERE Id = ?";
+
+        try {
+            $statement = $this->getPDO()->prepare($query);
+            $statement->bindParam(1, $name, PDO::PARAM_STR);
+            $statement->bindParam(2, $specie, PDO::PARAM_STR);
+            $statement->bindParam(3, $formattedBirthday, PDO::PARAM_STR);
+            $statement->bindParam(4, $description, PDO::PARAM_STR);
+            $statement->bindParam(5, $id, PDO::PARAM_INT);
+            $statement->execute();
+        } catch (PDOException $PDOException) {
+            throw new Exception("Error updating animal: ".$PDOException->getMessage(), 500);
+        }
+
+        return $this->getOne($id);
+    }
 }

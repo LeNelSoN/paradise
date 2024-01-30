@@ -7,7 +7,7 @@ return [
         'handler' => 'hello'
     ],
     '/animals/{id}' => [
-        'methods' => ['GET'],
+        'methods' => ['GET','PUT'],
         'instance' => 'Api\Controllers\AnimalController',
         'handler' => 'handlerAnimal'
     ],

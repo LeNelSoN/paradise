@@ -28,6 +28,13 @@ class AnimalController
             case 'POST':
                 $this->createOneAnimal();
                 break;
+            case 'PUT':
+                if($id != null){
+                    $this->updateOneAnimal($id);
+                } else {
+                    throw new Exception("Invalid data provided for updating animal", 400);
+                }
+                break;
         }
     }
 
@@ -61,6 +68,19 @@ class AnimalController
             Response::sendJson($animalDTO);
         } else {
             throw new Exception("Invalid data provided for creating animal", 400);
+        }
+    }
+
+    private function updateOneAnimal(String $id) : void {
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        if (isset($requestData['name']) && isset($requestData['specie']) && isset($requestData['birthday'])){
+            $description = isset($requestData['description']) ? $requestData['description'] : "";
+            $animal = $this->animalService->update($id, $requestData["name"], $requestData["specie"], $requestData["birthday"], $description);
+
+            $animalDTO = AnimalDTO::animalToDTO($animal);
+            Response::sendJson($animalDTO);
+        } else {
+            throw new Exception("Invalid data provided for updating animal", 400);
         }
     }
 }
