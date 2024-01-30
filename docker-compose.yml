@@ -4,9 +4,9 @@ services:
     image: nelson59/paradise-api:latest
     ports:
       - "8080:80"
-      - "9000:9000"  # Xdebug
+      - "9000:9000"
     volumes:
-      - .:/var/www/html # persistance for dev
+      - .:/var/www/html
     networks:
       - paradise-network
   
