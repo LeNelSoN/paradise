@@ -1,7 +1,7 @@
 version: '3'
 services:
   paradise-api:
-    build: .
+    image: nelson59/paradise-api:latest
     ports:
       - "8080:80"
       - "9000:9000"  # Xdebug
@@ -15,8 +15,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
     ports:
       - "3306:3306"
     volumes:
