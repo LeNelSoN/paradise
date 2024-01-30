@@ -47,5 +47,7 @@ jobs:
         script: |
           docker pull ${{ secrets.DOCKER_REGISTRY }}/paradise-api:latest
           cd projects/paradise-api
+          docker stop $(docker ps -q)
+          docker container prune
           docker-compose up -d
         
