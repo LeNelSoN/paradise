@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Checkout Repository
       uses: actions/checkout@v2
 
@@ -34,10 +33,10 @@ jobs:
         docker push ${{ secrets.DOCKER_REGISTRY }}/paradise-api:latest
   
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Deploy on VPS
       uses: appleboy/ssh-action@master
       with:
