@@ -28,6 +28,7 @@ class AnimalController
             case 'POST':
                 $this->createOneAnimal();
                 break;
+
             case 'PUT':
                 if($id != null){
                     $this->updateOneAnimal($id);
