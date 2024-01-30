@@ -47,5 +47,5 @@ jobs:
         script: |
           docker pull ${{ secrets.DOCKER_REGISTRY }}/paradise-api:latest
           cd projects/paradise-api
-          docker-compose up
+          docker-compose up -d
         
