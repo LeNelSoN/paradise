@@ -44,7 +44,10 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SERVER_SSH_PORT }}
-        script: ${{ secrets.SSH_SCRIPT }}
+        script: |
+          docker pull ${{ secrets.DOCKER_REGISTRY }}/paradise-api:latest
+          cd projects/paradise-api
+          docker-compose up
       env:
         DB_NAME: ${{ secrets.DB_NAME }}
         DB_USER: ${{ secrets.DB_USER }}
