@@ -12,7 +12,7 @@ return [
         'handler' => 'handlerAnimal'
     ],
     '/animals' => [
-        'methods' => ['GET'],
+        'methods' => ['GET','POST'],
         'instance' => 'Api\Controllers\AnimalController',
         'handler' => 'handlerAnimal'
     ]

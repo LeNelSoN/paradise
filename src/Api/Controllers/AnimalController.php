@@ -25,6 +25,9 @@ class AnimalController
             case 'GET':
                 $id == null ? $this->getAnimals(): $this->getOneAnimal($id);
                 break;
+            case 'POST':
+                $this->createOneAnimal();
+                break;
         }
     }
 
@@ -46,5 +49,18 @@ class AnimalController
         $animalDTO = AnimalDTO::animalToDTO($animal);
 
         Response::sendJson($animalDTO);
+    }
+
+    private function createOneAnimal() : void {
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        if (isset($requestData['name']) && isset($requestData['specie']) && isset($requestData['birthday'])){
+            $description = isset($requestData['description']) ? $requestData['description'] : "";
+            $animal = $this->animalService->create($requestData["name"], $requestData["specie"], $requestData["birthday"], $description);
+
+            $animalDTO = AnimalDTO::animalToDTO($animal);
+            Response::sendJson($animalDTO);
+        } else {
+            throw new Exception("Invalid data provided for creating animal", 400);
+        }
     }
 }
