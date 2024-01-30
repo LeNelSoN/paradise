@@ -5,13 +5,15 @@ use Api\Models\Animal;
 
 class AnimalDTO
 {
+    public String $id;
     public String $name;
     public String $specie;
     public String $birthday;
     public String $description;
 
-    private function __construct(String $name, String $specie, String $birthday, String $description)
+    private function __construct(String $id, String $name, String $specie, String $birthday, String $description)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->specie = $specie;
         $this->birthday = $birthday;
@@ -21,6 +23,7 @@ class AnimalDTO
     public static function animalToDTO(Animal $animal): AnimalDTO
     {
         return new AnimalDTO(
+            $animal->getId(),
             $animal->getName(),
             $animal->getSpecie(),
             $animal->getBirthday(),

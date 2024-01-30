@@ -6,6 +6,7 @@ use Api\Services\DAO;
 use Api\Models\Animal;
 use PDOException;
 use Exception;
+use DateTime;
 
 final class AnimalService extends DAO
 {
@@ -74,5 +75,26 @@ final class AnimalService extends DAO
         } else {
             throw new Exception("Animal not found", 404);
         }
+    }
+
+    public function create(string $name, string $specie, string $birthday, string $description = ""): Animal
+    {
+        $formattedBirthday = (new DateTime(str_replace('/', '-', $birthday)))->format('Y-m-d');
+
+        $query = "INSERT INTO animal (name, specie, birthday, description) VALUES (?, ?, ?, ?)";
+
+        try {
+            $statement = $this->getPDO()->prepare($query);
+            $statement->bindParam(1, $name, PDO::PARAM_STR);
+            $statement->bindParam(2, $specie, PDO::PARAM_STR);
+            $statement->bindParam(3, $formattedBirthday, PDO::PARAM_STR);
+            $statement->bindParam(4, $description, PDO::PARAM_STR);
+            $statement->execute();
+        } catch (PDOException $PDOException) {
+            throw new Exception("Error creating animal: ".$PDOException->getMessage(), 500);
+        }
+
+        $lastInsertId = $this->getPDO()->lastInsertId();
+        return $this->getOne($lastInsertId);
     }
 }
