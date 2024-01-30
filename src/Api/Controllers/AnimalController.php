@@ -15,8 +15,12 @@ class AnimalController
         $this->animalService = new AnimalService();
     }
 
-    public function handlerAnimal(String $method, String $id): void
+    public function handlerAnimal(String $method, array $params): void
     {
+        $id = null;
+        if (isset($params[0])) {
+            $id = $params[0];
+        }
         switch ($method) {
             case 'GET':
                 $id == null ? $this->getAnimals(): $this->getOneAnimal($id);

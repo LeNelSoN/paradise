@@ -51,7 +51,7 @@ class Application {
                 if (class_exists($instance) && method_exists($instance, $handler))
                 {
                     $controller = new $instance();
-                    $controller->$handler($method, ...$route['params']);
+                    $controller->$handler($method, $route['params']);
                 }
             }
         } else {

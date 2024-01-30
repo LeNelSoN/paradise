@@ -4,6 +4,7 @@ namespace Api\Services;
 use PDO;
 use Api\Services\DAO;
 use Api\Models\Animal;
+use PDOException;
 
 final class AnimalService extends DAO
 {
@@ -23,7 +24,12 @@ final class AnimalService extends DAO
     public function getAll(): array
     {
         $query = "SELECT * FROM animal";
-        $statement = $this->getPDO()->query($query);
+        try {
+            $statement = $this->getPDO()->query($query);
+        } catch (PDOException $PDOException) {
+            throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+        }
+        
 
         $animalsData = $statement->fetchAll(PDO::FETCH_ASSOC);
         $animals = [];
