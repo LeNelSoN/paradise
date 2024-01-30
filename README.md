@@ -10,15 +10,22 @@ Paradise API is a RESTful Application Programming Interface (API) designed for i
   GET /hello
 ```
 
-#### Get item
+#### CRUD animals
 
 ```http
+  POST /animals
   GET /animals/${id}
+  PUT /animals/${id}
+  DELETE /animals/${id}
 ```
 
-| Parameter | Type     | Description               |
-| :-------- | :------- | :------------------------ |
-| `id`      | `string` | **Optional** Id of animal |
+| Method    | Parameter | Type     | Description               |
+| :-------- | :-------- | :------- | :------------------------ |
+| POST      | **None**  | -        | -                         |
+| GET       | `id`      | `int`    | **Optional** Id of animal |
+| PUT       | `id`      | `int`    | Id of animal              |
+| DELETE    | `id`      | `int`    | Id of animal              |
+
 
 ## Running Locally with Docker
 
