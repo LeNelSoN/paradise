@@ -10,5 +10,10 @@ return [
         'methods' => ['GET'],
         'instance' => 'Api\Controllers\AnimalController',
         'handler' => 'handlerAnimal'
+    ],
+    '/animals' => [
+        'methods' => ['GET'],
+        'instance' => 'Api\Controllers\AnimalController',
+        'handler' => 'handlerAnimal'
     ]
 ];

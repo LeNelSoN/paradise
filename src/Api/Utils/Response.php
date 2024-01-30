@@ -13,7 +13,7 @@ class Response {
      * 
      * @author valentin
      */
-    public static function sendJson($data, $statusCode = 200)
+    public static function sendJson(mixed $data, int $statusCode = 200)
     {
         header('Content-Type: application/json');
         http_response_code($statusCode);

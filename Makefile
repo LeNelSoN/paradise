@@ -7,7 +7,7 @@ help:
 	@echo "  make down           - Stop and remove Docker containers"
 
 up:
-	$(DOCKER_COMPOSE) up -d
+	$(DOCKER_COMPOSE) up -d --build
 
 down:
 	$(DOCKER_COMPOSE) down

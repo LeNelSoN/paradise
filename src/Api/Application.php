@@ -5,6 +5,7 @@ use Api\Utils\Response;
 use Api\Utils\Error;
 use Api\Controllers\HelloController;
 use Api\Controllers\AnimalController;
+use Dotenv\Dotenv;
 use Exception;
 
 /**
@@ -19,10 +20,8 @@ class Application {
 
     public function __construct()
     {
-        define('DB_HOST', 'localhost:3306');
-        define('DB_NAME', 'paradise_db');
-        define('DB_USER', 'root');
-        define('DB_PASS', 'password');
+        $dotenv = Dotenv::createImmutable('/var/www/html');
+        $dotenv->safeLoad();
         
         $this->routeList = require_once '/var/www/html/src/Api/Configuration/Routes.php';
     }
@@ -52,7 +51,7 @@ class Application {
                 if (class_exists($instance) && method_exists($instance, $handler))
                 {
                     $controller = new $instance();
-                    $controller->$handler($method, ...$route['params']);
+                    $controller->$handler($method, $route['params']);
                 }
             }
         } else {
