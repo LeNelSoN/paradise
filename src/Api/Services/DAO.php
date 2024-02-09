@@ -29,4 +29,10 @@ abstract class DAO {
 
         return self::$pdo;
     }
+
+    abstract protected function getAll(): array;
+    abstract protected function getOne(mixed $id);
+    abstract protected function create(mixed $data);
+    abstract protected function update(mixed $id, mixed $data);
+    abstract protected function delete(mixed $id);
 }

@@ -5,6 +5,7 @@ namespace Api\Controllers;
 use Api\Services\AnimalService;
 use Api\Utils\Response;
 use Api\DTO\AnimalDTO;
+use Api\Models\Animal;
 
 class AnimalController
 {
@@ -49,11 +50,7 @@ class AnimalController
     private function getAnimals(): void
     {
         $animals = $this->animalService->getAll();
-        $animalsDTO = [];
-
-        foreach ($animals as $animal) {
-            $animalsDTO[] = AnimalDTO::animalToDTO($animal);
-        }
+        $animalsDTO = AnimalDTO::animalToDTOArray($animals);
 
         Response::sendJson($animalsDTO);
     }
@@ -68,33 +65,34 @@ class AnimalController
 
     private function createOneAnimal() : void {
         $requestData = json_decode(file_get_contents('php://input'), true);
-        if (isset($requestData['name']) && isset($requestData['specie']) && isset($requestData['birthday'])){
-            $description = isset($requestData['description']) ? $requestData['description'] : "";
-            $animal = $this->animalService->create($requestData["name"], $requestData["specie"], $requestData["birthday"], $description);
 
-            $animalDTO = AnimalDTO::animalToDTO($animal);
-            Response::sendJson($animalDTO);
-        } else {
+        if (!isset($requestData['name'])) {
             throw new Exception("Invalid data provided for creating animal", 400);
         }
+
+        $animal = AnimalDTO::requestDataToAnimal($requestData);
+        $newAnimal = $this->animalService->create($animal);
+
+        $animalDTO = AnimalDTO::animalToDTO($newAnimal);
+        Response::sendJson($animalDTO);
     }
 
-    private function updateOneAnimal(String $id) : void {
+    private function updateOneAnimal(String $id) : void 
+    {
         $requestData = json_decode(file_get_contents('php://input'), true);
-        if (isset($requestData['name']) && isset($requestData['specie']) && isset($requestData['birthday'])){
-            $description = isset($requestData['description']) ? $requestData['description'] : "";
-            $animal = $this->animalService->update($id, $requestData["name"], $requestData["specie"], $requestData["birthday"], $description);
 
-            $animalDTO = AnimalDTO::animalToDTO($animal);
-            Response::sendJson($animalDTO);
-        } else {
-            throw new Exception("Invalid data provided for updating animal", 400);
-        }
+        $animal = AnimalDTO::requestDataToAnimal($requestData, $id);
+        $updateAnimal = $this->animalService->update($id, $animal);
+
+        $animalDTO = AnimalDTO::animalToDTO($updateAnimal);
+        Response::sendJson($animalDTO);
     }
 
-    private function deleteOneAnimal(String $id) : void {
+    private function deleteOneAnimal(String $id) : void 
+    {
         $this->animalService->delete($id);
         $message = ["message" => "Animal with id $id deleted successfully"];
         Response::sendJson($message, 200);
     }
+
 }
