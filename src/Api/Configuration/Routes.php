@@ -15,5 +15,15 @@ return [
         'methods' => ['GET','POST'],
         'instance' => 'Api\Controllers\AnimalController',
         'handler' => 'handlerAnimal'
+    ],
+    '/especes/{id}' => [
+        'methods' => ['GET','PUT','DELETE'],
+        'instance' => 'Api\Controllers\FicheController',
+        'handler' => 'handlerFiche'
+    ],
+    '/especes' => [
+        'methods' => ['GET','POST'],
+        'instance' => 'Api\Controllers\FicheController',
+        'handler' => 'handlerFiche'
     ]
 ];
