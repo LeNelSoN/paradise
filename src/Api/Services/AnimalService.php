@@ -93,7 +93,7 @@ final class AnimalService extends DAO
      * 
      * @return Animal The Animal object representing the animal.
      */
-    public function getOne(int $id): Animal
+    public function getOne(mixed $id): Animal
     {
         $query = "SELECT animal.*, 
                 fiche.classe, 
@@ -183,7 +183,7 @@ final class AnimalService extends DAO
      * 
      * @return Animal The Animal object representing the updated animal.
      */
-    public function update(int $id, $animal): Animal
+    public function update(mixed $id, mixed $animal): Animal
     {
         $this->query = "UPDATE animal SET";
         $this->params = [];
@@ -217,7 +217,7 @@ final class AnimalService extends DAO
      * 
      * @param int $id The id of the animal.
      */
-    public function delete(int $id): void
+    public function delete(mixed $id): void
     {
         $query = "DELETE FROM animal WHERE Id = ?";
 
