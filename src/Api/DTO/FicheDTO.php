@@ -12,7 +12,7 @@ class FicheDTO
     public String $specieName;
     public ?ClasseDTO $classe;
     public ?AlimentationDTO $alimentation;
-    public ?String $poidMoyen;
+    public ?String $poidsMoyen;
     public ?String $longevite;
     public ?String $longueur;
     public ?String $taille;
@@ -34,9 +34,9 @@ class FicheDTO
         $this->alimentation = $alimentation;
     }
 
-    private function setPoidMoyen(String $poidMoyen): void
+    private function setPoidsMoyen(String $poidsMoyen): void
     {
-        $this->poidMoyen = $poidMoyen;
+        $this->poidsMoyen = $poidsMoyen;
     }
 
     private function setLongevite(String $longevite): void
@@ -71,8 +71,8 @@ class FicheDTO
             $ficheDTO->setAlimentationDTO(AlimentationDTO::alimentationToDTO($fiche->getAlimentation()));
         }
 
-        if ($fiche->getPoidMoyen() !== null) {
-            $ficheDTO->setPoidMoyen($fiche->getPoidMoyen());
+        if ($fiche->getPoidsMoyen() !== null) {
+            $ficheDTO->setPoidsMoyen($fiche->getPoidsMoyen());
         }
 
         if ($fiche->getLongevite() !== null) {

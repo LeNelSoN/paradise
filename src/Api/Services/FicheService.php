@@ -35,7 +35,7 @@ final class FicheService extends DAO
             try {
                 $statement = $this->getPDO()->query($query);
             } catch (PDOException $PDOException) {
-                throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+                throw new Exception("Error Processing Request : ".$PDOException->getMessage(), 500);
             }
             
             $fichesData = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -64,7 +64,7 @@ final class FicheService extends DAO
                 $statement->bindParam(':id', $id);
                 $statement->execute();
             } catch (PDOException $PDOException) {
-                throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+                throw new Exception("Error Processing Request : ".$PDOException->getMessage(), 500);
             }
             $data = $statement->fetch(PDO::FETCH_ASSOC);
             
@@ -84,7 +84,7 @@ final class FicheService extends DAO
 
             $this->addDataToCreateQuery($fiche->getClasseId(), $collumns[1]);
             $this->addDataToCreateQuery($fiche->getAlimentationId(), $collumns[2]);
-            $this->addDataToCreateQuery($fiche->getPoidMoyen(), $collumns[3]);
+            $this->addDataToCreateQuery($fiche->getPoidsMoyen(), $collumns[3]);
             $this->addDataToCreateQuery($fiche->getLongevite(), $collumns[4]);
             $this->addDataToCreateQuery($fiche->getLongueur(), $collumns[5]);
             $this->addDataToCreateQuery($fiche->getTaille(), $collumns[6]);
@@ -99,33 +99,52 @@ final class FicheService extends DAO
             try {
                 $statement = $this->getPDO()->prepare($this->query);
                 $statement->execute($this->params);
+                return $this->getOne($fiche->getSpecieName());
             } catch (PDOException $PDOException) {
-                throw new Exception("Error creating specie fiche : ".$PDOException->message, 500);
+                throw new Exception("Error creating specie fiche : ".$PDOException->getMessage(), 500);
             }
 
             $lastId = $this->getPDO()->lastInsertId();
 
             return $this->getOne($lastId);
         }
-
-        public function update(mixed $id, mixed $data): void
+        /**
+         * Updates a fiche in the database.
+         * 
+         * @param String $id The name of the specie.
+         * @param Fiche $fiche The Fiche object representing the fiche.
+         */
+        public function update(mixed $id, mixed $data): Fiche
         {
-            $query = "UPDATE fiche SET specie_name = :specie_name, classe = :classe, alimentation = :alimentation, poidsMoyen = :poidsMoyen, longevite = :longevite, longueur = :longueur, taille = :taille, zone_geographique = :zone_geographique, description = :description WHERE specie_name = :id;";
+            $this->query = "UPDATE fiche SET";
+            $this->params = [];
+
+            $collumns = $data->getCollumns();
+
+            $this->addDataToUpdateQuery($data->getClasseId(), $collumns[1]);
+            $this->addDataToUpdateQuery($data->getAlimentationId(), $collumns[2]);
+            $this->addDataToUpdateQuery($data->getPoidsMoyen(), $collumns[3]);
+            $this->addDataToUpdateQuery($data->getLongevite(), $collumns[4]);
+            $this->addDataToUpdateQuery($data->getLongueur(), $collumns[5]);
+            $this->addDataToUpdateQuery($data->getTaille(), $collumns[6]);
+            $this->addDataToUpdateQuery($data->getZoneGeographiqueId(), $collumns[7]);
+            $this->addDataToUpdateQuery($data->getDescription(), $collumns[8]);
+
+            $this->query = rtrim($this->query, ',');
+
+            $this->query .= " WHERE specie_name = ?";
+            $this->params[] = $id;
+
             try {
-                $statement = $this->getPDO()->prepare($query);
-                $statement->bindParam(':specie_name', $data['specie_name']);
-                $statement->bindParam(':classe', $data['classe']);
-                $statement->bindParam(':alimentation', $data['alimentation']);
-                $statement->bindParam(':poidsMoyen', $data['poidsMoyen']);
-                $statement->bindParam(':longevite', $data['longevite']);
-                $statement->bindParam(':longueur', $data['longueur']);
-                $statement->bindParam(':taille', $data['taille']);
-                $statement->bindParam(':zone_geographique', $data['zone_geographique']);
-                $statement->bindParam(':description', $data['description']);
-                $statement->bindParam(':id', $id);
+                $statement = $this->getPDO()->prepare($this->query);
+                for ($i=0; $i < count($this->params) ; $i++) { 
+                    $statement->bindParam($i+1, $this->params[$i], PDO::PARAM_STR);
+                }
                 $statement->execute();
+
+                return $this->getOne($id);
             } catch (PDOException $PDOException) {
-                throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+                throw new Exception("Error Processing Request : ".$PDOException->getMessage(), 500);
             }
         }
 
@@ -137,7 +156,7 @@ final class FicheService extends DAO
                 $statement->bindParam(':id', $id);
                 $statement->execute();
             } catch (PDOException $PDOException) {
-                throw new Exception("Error Processing Request : ".$PDOException->message, 500);
+                throw new Exception("Error Processing Request : ".$PDOException->getMessage(), 500);
             }
         }
 
@@ -154,7 +173,7 @@ final class FicheService extends DAO
                 $fiche->setAlimentation(new Alimentation($data['alimentation'], $data['alimentation_description']));
             }
             if ($data['poidsMoyen'] !== null) {
-                $fiche->setPoidMoyen($data['poidsMoyen']);
+                $fiche->setPoidsMoyen($data['poidsMoyen']);
             }
             if ($data['longevite'] !== null) {
                 $fiche->setLongevite($data['longevite']);

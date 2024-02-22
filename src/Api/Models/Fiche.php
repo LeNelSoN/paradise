@@ -9,21 +9,21 @@ class Fiche
 {
     private String $specieName;
     private String $collumnSpecie = "specie_name";
-    private ?int $classeId = null;
+    private ?String $classeId = null;
     private ?Classe $classe = null;
     private String $collumnClasse = "classe";
-    private ?int $alimentationId = null;
+    private ?String $alimentationId = null;
     private ?Alimentation $alimentation = null;
     private String $collumnAlimentation = "alimentation";
-    private ?String $poidMoyen = null;
-    private String $collumnPoidMoyen = "poidMoyen";
+    private ?String $poidsMoyen = null;
+    private String $collumnPoidsMoyen = "poidsMoyen";
     private ?String $longevite = null;
     private String $collumnLongevite = "longevite";
     private ?String $longueur = null;
     private String $collumnLongueur = "longueur";
     private ?String $taille = null;
     private String $collumnTaille = "taille";
-    private ?int $zoneGeographiqueId = null;
+    private ?String $zoneGeographiqueId = null;
     private ?ZoneGeographique $zoneGeographique = null;
     private String $collumnZoneGeographique = "zone_geographique";
     private ?String $description = null;
@@ -39,7 +39,7 @@ class Fiche
         return $this->specieName;
     }
 
-    public function getClasseId(): ?int
+    public function getClasseId(): ?String
     {
         return $this->classeId;
     }
@@ -49,7 +49,7 @@ class Fiche
         return $this->classe;
     }
 
-    public function getAlimentationId(): ?int
+    public function getAlimentationId(): ?String
     {
         return $this->alimentationId;
     }
@@ -59,9 +59,9 @@ class Fiche
         return $this->alimentation;
     }
 
-    public function getPoidMoyen(): ?String
+    public function getPoidsMoyen(): ?String
     {
-        return $this->poidMoyen;
+        return $this->poidsMoyen;
     }
 
     public function getLongevite(): ?String
@@ -79,7 +79,7 @@ class Fiche
         return $this->taille;
     }
 
-    public function getZoneGeographiqueId(): ?int
+    public function getZoneGeographiqueId(): ?String
     {
         return $this->zoneGeographiqueId;
     }
@@ -100,7 +100,7 @@ class Fiche
             $this->collumnSpecie,
             $this->collumnClasse,
             $this->collumnAlimentation,
-            $this->collumnPoidMoyen,
+            $this->collumnPoidsMoyen,
             $this->collumnLongevite,
             $this->collumnLongueur,
             $this->collumnTaille,
@@ -114,7 +114,7 @@ class Fiche
         $this->specieName = $specieName;
     }
 
-    public function setClasseId(int $classeId): void
+    public function setClasseId(String $classeId): void
     {
         $this->classeId = $classeId;
     }
@@ -124,7 +124,7 @@ class Fiche
         $this->classe = $classe;
     }
 
-    public function setAlimentationId(int $alimentationId): void
+    public function setAlimentationId(String $alimentationId): void
     {
         $this->alimentationId = $alimentationId;
     }
@@ -134,9 +134,9 @@ class Fiche
         $this->alimentation = $alimentation;
     }
 
-    public function setPoidMoyen(String $poidMoyen): void
+    public function setPoidsMoyen(String $poidsMoyen): void
     {
-        $this->poidMoyen = $poidMoyen;
+        $this->poidsMoyen = $poidsMoyen;
     }
 
     public function setLongevite(String $longevite): void
@@ -154,7 +154,7 @@ class Fiche
         $this->taille = $taille;
     }
 
-    public function setZoneGeographiqueId(int $zoneGeographiqueId): void
+    public function setZoneGeographiqueId(String $zoneGeographiqueId): void
     {
         $this->zoneGeographiqueId = $zoneGeographiqueId;
     }
@@ -193,8 +193,8 @@ class Fiche
         if (isset($data['alimentation'])) {
             $fiche->setAlimentationId($data['alimentation']);
         }
-        if (isset($data['poidMoyen'])) {
-            $fiche->setPoidMoyen($data['poidMoyen']);
+        if (isset($data['poidsMoyen'])) {
+            $fiche->setPoidsMoyen($data['poidsMoyen']);
         }
         if (isset($data['longevite'])) {
             $fiche->setLongevite($data['longevite']);
