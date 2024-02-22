@@ -74,4 +74,21 @@ class FicheController
         $ficheDTO = FicheDTO::ficheToDTO($fiche);
         Response::sendJson($ficheDTO, 201);
     }
+
+    private function updateOneFiche(String $id): void
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $fiche = Fiche::requestDataToFiche($data);
+        $fiche->setSpecieName($id);
+
+        $updatedFiche = $this->ficheService->update($id, $fiche);
+        $ficheDTO = FicheDTO::ficheToDTO($updatedFiche);
+        Response::sendJson($ficheDTO);
+    }
+
+    private function deleteOneFiche(String $id): void
+    {
+        $this->ficheService->delete($id);
+        Response::sendJson(null, 204);
+    }
 }
