@@ -4,12 +4,13 @@ namespace Api\Models;
 class Alimentation
 {
     private String $name;
-    private String $description;
+    private String $collumnName = "alimentation_name";
+    private ?String $description = null;
+    private String $collumnDescription = "description";
 
-    public function __construct(String $name, String $description)
+    public function __construct(String $name)
     {
         $this->name = $name;
-        $this->description = $description;
     }
 
     public function getName(): String
@@ -17,9 +18,19 @@ class Alimentation
         return $this->name;
     }
 
-    public function getDescription(): String
+    public function getDescription(): ?String
     {
         return $this->description;
+    }
+
+    public function getCollumnName(): String
+    {
+        return $this->collumnName;
+    }
+
+    public function getCollumnDescription(): String
+    {
+        return $this->collumnDescription;
     }
 
     public function setName(String $name): void

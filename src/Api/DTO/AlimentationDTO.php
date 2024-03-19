@@ -21,4 +21,24 @@ class AlimentationDTO
             $alimentation->getDescription()
         );
     }
+
+    public static function alimentationToDTOarray(array $alimentations): array
+    {
+        $alimentationsDTO = [];
+        foreach ($alimentations as $alimentation) {
+            $alimentationsDTO[] = self::alimentationToDTO($alimentation);
+        }
+        return $alimentationsDTO;
+    }
+
+    public static function requestToAlimentation(array $request): Alimentation
+    {
+        $alimentation = new Alimentation($request['name']);
+
+        if (isset($request['description'])) {
+            $alimentation->setDescription($request['description']);
+        }
+
+        return $alimentation;
+    }
 }

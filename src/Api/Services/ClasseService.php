@@ -136,7 +136,11 @@ final class ClasseService extends DAO
 
     private function dataToClasse($data): Classe
     {
-        return new Classe($data['classe_name'],$data['description']);
+        $classe = new Classe($data['classe_name']);
+        if (isset($data['description'])){
+            $classe->setDescription($data['description']);
+        }
+        return $classe;
     }
 
     private function addDataToCreateQuery($data, $collumn)

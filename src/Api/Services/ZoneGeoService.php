@@ -63,7 +63,7 @@ final class ZoneGeoService extends DAO
         }
     }
 
-    public function create($zoneGeo): ZoneGeographique
+    public function create(mixed $zoneGeo): ZoneGeographique
     {
 
         $this->query = "INSERT INTO zone_geographique (zone_geographique_name, ";
@@ -96,7 +96,9 @@ final class ZoneGeoService extends DAO
         $this->query = "UPDATE zone_geographique SET";
         $this->params = [];
     
-        $this->addDataToUpdateQuery(strtolower($zoneGeo->getName()), $zoneGeo->getCollumnName());
+        if($zoneGeo->getName() !== null){
+            $this->addDataToUpdateQuery($zoneGeo->getName(), $zoneGeo->getCollumnName());
+        }
 
         if($zoneGeo->getDescription() !== null){
             $this->addDataToUpdateQuery($zoneGeo->getDescription(), $zoneGeo->getCollumnDescription());
@@ -136,7 +138,13 @@ final class ZoneGeoService extends DAO
 
     private function dataToZoneGeo(array $data): ZoneGeographique
     {
-        return new ZoneGeographique($data['zone_geographique_name'], $data['description']);
+        $zoneGeo = new ZoneGeographique($data['zone_geographique_name']);
+
+        if (isset($data['description'])) {
+            $zoneGeo->setDescription($data['description']);
+        }
+
+        return $zoneGeo;
     }
 
     private function addDataToCreateQuery($data, $collumn)

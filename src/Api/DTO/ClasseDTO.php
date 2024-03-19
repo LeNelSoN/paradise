@@ -21,4 +21,24 @@ class ClasseDTO
             $classe->getDescription()
         );
     }
+
+    public static function classeToDTOarray(array $classes): array
+    {
+        $classesDTO = [];
+        foreach ($classes as $classe) {
+            $classesDTO[] = self::classeToDTO($classe);
+        }
+        return $classesDTO;
+    }
+
+    public static function requestToClasse(array $request): Classe
+    {
+        $classe = new Classe($request['name']);
+
+        if (isset($request['description'])) {
+            $classe->setDescription($request['description']);
+        }
+
+        return $classe;
+    }
 }
