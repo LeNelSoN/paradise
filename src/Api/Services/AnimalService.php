@@ -44,31 +44,21 @@ final class AnimalService extends DAO
      */
     public function getAll(): array
     {
-        $query = "SELECT animal.*,
-                fiche.classe, 
-                fiche.alimentation, 
-                fiche.zone_geographique, 
-                fiche.poidsMoyen, 
-                fiche.longevite, 
-                fiche.longueur, 
-                fiche.taille, 
-                fiche.description               AS fiche_description, 
-                classe.description              AS classe_description, 
-                zone_geographique.description   AS zone_geographique_description, 
-                alimentation.description        AS alimentation_description,
-                enclos.name                     AS enclos_name, 
-                enclos.description              AS enclos_description,
-                zone.Id                         AS zone_id, 
-                zone.name                       AS zone_name, 
-                zone.description                AS zone_description  
-            FROM animal 
-            LEFT JOIN fiche                 ON animal.specie = fiche.specie_name 
-            LEFT JOIN classe                ON fiche.classe = classe.classe_name 
-            LEFT JOIN zone_geographique     ON fiche.zone_geographique = zone_geographique.zone_geographique_name 
-            LEFT JOIN alimentation          ON fiche.alimentation = alimentation.alimentation_name
-            LEFT JOIN enclos                ON animal.enclos_id = enclos.Id 
-            LEFT JOIN zone                  ON enclos.zone_id = zone.Id;";
-                    
+        $query = "SELECT animal.*, 
+                    fiche.classe, fiche.alimentation, 
+                    fiche.zone_geographique, fiche.poidsMoyen, 
+                    fiche.longevite, 
+                    fiche.longueur, 
+                    fiche.taille, 
+                    fiche.description               AS fiche_description, 
+                    classe.description              AS classe_description, 
+                    zone_geographique.description   AS zone_geographique_description, 
+                    alimentation.description        AS alimentation_description 
+                    FROM animal 
+                    LEFT JOIN fiche                 ON animal.specie = fiche.specie_name 
+                    LEFT JOIN classe                ON fiche.classe = classe.classe_name 
+                    LEFT JOIN zone_geographique     ON fiche.zone_geographique = zone_geographique.zone_geographique_name 
+                    LEFT JOIN alimentation          ON fiche.alimentation = alimentation.alimentation_name";
         try {
             $statement = $this->getPDO()->query($query);
         } catch (PDOException $PDOException) {
@@ -96,30 +86,23 @@ final class AnimalService extends DAO
     public function getOne(mixed $id): Animal
     {
         $query = "SELECT animal.*, 
-                fiche.classe, 
-                fiche.alimentation, 
-                fiche.zone_geographique, 
-                fiche.poidsMoyen, 
-                fiche.longevite, 
-                fiche.longueur, 
-                fiche.taille, 
-                fiche.description               AS fiche_description, 
-                classe.description              AS classe_description, 
-                zone_geographique.description   AS zone_geographique_description, 
-                alimentation.description        AS alimentation_description, 
-                enclos.name                     AS enclos_name, 
-                enclos.description              AS enclos_description, 
-                zone.Id                         AS zone_id, 
-                zone.name                       AS zone_name, 
-                zone.description                AS zone_description 
-            FROM animal 
-            LEFT JOIN fiche                 ON animal.specie = fiche.specie_name 
-            LEFT JOIN classe                ON fiche.classe = classe.classe_name 
-            LEFT JOIN zone_geographique     ON fiche.zone_geographique = zone_geographique.zone_geographique_name 
-            LEFT JOIN alimentation          ON fiche.alimentation = alimentation.alimentation_name 
-            LEFT JOIN enclos                ON animal.enclos_id = enclos.Id 
-            LEFT JOIN zone                  ON enclos.zone_id = zone.Id 
-            WHERE animal.Id = ?;";
+                    fiche.classe, 
+                    fiche.alimentation, 
+                    fiche.zone_geographique, 
+                    fiche.poidsMoyen, 
+                    fiche.longevite, 
+                    fiche.longueur, 
+                    fiche.taille, 
+                    fiche.description             AS fiche_description, 
+                    classe.description            AS classe_description, 
+                    zone_geographique.description AS zone_geographique_description, 
+                    alimentation.description      AS alimentation_description 
+                    FROM animal 
+                    LEFT JOIN fiche             ON animal.specie = fiche.specie_name 
+                    LEFT JOIN classe            ON fiche.classe = classe.classe_name 
+                    LEFT JOIN zone_geographique ON fiche.zone_geographique = zone_geographique.zone_geographique_name 
+                    LEFT JOIN alimentation      ON fiche.alimentation = alimentation.alimentation_name 
+                    WHERE Id = ?;";
         
         try {
             $statement = $this->getPDO()->prepare($query);
@@ -154,7 +137,6 @@ final class AnimalService extends DAO
         $this->addDataToCreateQuery($animal->getSpecieId(), $animal->getCollumnSpecie());
         $this->addDataToCreateQuery(ServiceHelper::stringToDateTime($animal->getBirthday()), $animal->getCollumnBirthday());
         $this->addDataToCreateQuery($animal->getDescription(), $animal->getCollumnDescription());
-        $this->addDataToCreateQuery($animal->getEnclosId(), $animal->getCollumnEnclos());
 
         $this->query = rtrim($this->query, ', ');
         $this->query .= ") ";
@@ -188,10 +170,18 @@ final class AnimalService extends DAO
         $this->query = "UPDATE animal SET";
         $this->params = [];
     
-        $this->addDataToUpdateQuery($animal->getName(), $animal->getCollumnName());
+        if ($animal->getName() !== null) {
+            $this->addDataToUpdateQuery($animal->getName(), $animal->getCollumnName());
+        }
+        
         $this->addDataToUpdateQuery($animal->getSpecieId(), $animal->getCollumnSpecie());
-        $this->addDataToUpdateQuery(ServiceHelper::stringToDateTime($animal->getBirthday()), $animal->getCollumnBirthday());
-        $this->addDataToUpdateQuery($animal->getDescription(), $animal->getCollumnDescription());
+        if ($animal->getBirthday() !== null) {
+            $this->addDataToUpdateQuery(ServiceHelper::stringToDateTime($animal->getBirthday()), $animal->getCollumnBirthday());
+        }
+
+        if ($animal->getDescription() !== null) {
+            $this->addDataToUpdateQuery($animal->getDescription(), $animal->getCollumnDescription());
+        }
     
         $this->query = rtrim($this->query, ',');
     
@@ -227,6 +217,79 @@ final class AnimalService extends DAO
             $statement->execute();
         } catch (PDOException $PDOException) {
             throw new Exception("Error deleting animal: ".$PDOException->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Converts data from the database to an Animal object.
+     * 
+     * @param array $data The data from the database.
+     * 
+     * @return Animal The Animal object.
+     */
+    private function dataToAnimal($data): Animal
+    {
+        $animal = new Animal($data['Id']);
+        
+        if (isset($data['name'])){
+            $animal->setName($data['name']);
+        }
+
+        if (isset($data['birthday'])){
+            $animal->setBirthday(new DateTime($data['birthday']));
+        }
+
+        if (isset($data['description'])){
+            $animal->setDescription($data['description']);
+        }
+
+        if (isset($data['specie'])){
+            $specie = new Fiche($data['specie']);
+            if(isset($data['poidsMoyen'])){
+                $specie->setPoidsMoyen($data['poidsMoyen']);
+            }
+            if(isset($data['longevite'])){
+                $specie->setLongevite($data['longevite']);
+            }
+            if(isset($data['longueur'])){
+                $specie->setLongueur($data['longueur']);
+            }
+            if(isset($data['taille'])){
+                $specie->setTaille($data['taille']);
+            }
+            if(isset($data['fiche_description'])){
+                $specie->setDescription($data['fiche_description']);
+            }
+            if (isset($data['classe'])){
+                $specie->setClasse(new Classe(
+                    $data['classe'],
+                    $data['classe_description']
+                ));
+            }
+            if (isset($data['alimentation'])){
+                $specie->setAlimentation(new Alimentation(
+                    $data['alimentation'],
+                    $data['alimentation_description']
+                ));
+            }
+            if (isset($data['zone_geographique'])){
+                $specie->setZoneGeographique(new ZoneGeographique(
+                    $data['zone_geographique'],
+                    $data['zone_geographique_description']
+                ));
+            }
+
+            $animal->setSpecie($specie);
+        }
+
+        return $animal;
+    }
+
+    private function addDataToCreateQuery($data, $collumn)
+    {
+        if ($data !== null) {
+            $this->query .= " $collumn ,";
+            $this->params[] = $data;
         }
     }
 
