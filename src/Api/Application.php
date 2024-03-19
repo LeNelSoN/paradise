@@ -3,8 +3,6 @@ namespace Api;
 
 use Api\Utils\Response;
 use Api\Utils\Error;
-use Api\Controllers\HelloController;
-use Api\Controllers\AnimalController;
 use Dotenv\Dotenv;
 use Exception;
 

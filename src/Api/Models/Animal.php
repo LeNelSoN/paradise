@@ -20,7 +20,7 @@ class Animal
 {
     private int $id;
     private String $collumnId = "Id";
-    private String $name;
+    private ?String $name = null;
     private String $collumnName = "name";
     private ?String $specieId = null;
     private ?Fiche $specie = null;
@@ -29,20 +29,15 @@ class Animal
     private String $collumnBirthday = "birthday";
     private ?String $description = null;
     private String $collumnDescription = "description";
-    private ?int $enclosId = null;
-    private ?Enclos $enclos = null;
-    private String $collumnEnclos = "enclos_id";
 
     /**
      * Constructor for class Animal
      * 
      * @param int $id The id of the animal.
-     * @param String $name The name of the animal.
      */
-    public function __construct(int $id, String $name)
+    public function __construct(int $id)
     {
         $this->id = $id;
-        $this->name = $name;
     }
 
     public function getId(): int
@@ -55,7 +50,7 @@ class Animal
         return $this->collumnId;
     }
 
-    public function getName(): String
+    public function getName(): ?String
     {
         return $this->name;
     }
@@ -100,21 +95,6 @@ class Animal
         return $this->collumnBirthday;
     }
 
-    public function getEnclosId(): ?int
-    {
-        return $this->enclosId;
-    }
-
-    public function getEnclos(): ?Enclos
-    {
-        return $this->enclos;
-    }
-
-    public function getCollumnEnclos(): String
-    {
-        return $this->collumnEnclos;
-    }
-
     public function setId(int $id): void
     {
         $this->id = $id;
@@ -143,16 +123,6 @@ class Animal
     public function setBirthday(String $birthday): void
     {
         $this->birthday = ServiceHelper::stringToDateTime($birthday);
-    }
-
-    public function setEnclosId(int $enclosId): void
-    {
-        $this->enclosId = $enclosId;
-    }
-
-    public function setEnclos(Enclos $enclos): void
-    {
-        $this->enclos = $enclos;
     }
 
     public function __toString(): String

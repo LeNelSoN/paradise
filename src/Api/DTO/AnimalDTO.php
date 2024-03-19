@@ -76,7 +76,11 @@ class AnimalDTO
      */
     public static function requestDataToAnimal(array $data, ?int $id = 0): Animal
     {
-        $animal = new Animal($id, $data['name']);
+        $animal = new Animal($id);
+
+        if(isset($data['name'])){
+            $animal->setName($data['name']);
+        }
 
         if (isset($data['description'])) {
             $animal->setDescription($data['description']);
