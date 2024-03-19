@@ -59,7 +59,6 @@ final class AnimalService extends DAO
                     LEFT JOIN classe                ON fiche.classe = classe.classe_name 
                     LEFT JOIN zone_geographique     ON fiche.zone_geographique = zone_geographique.zone_geographique_name 
                     LEFT JOIN alimentation          ON fiche.alimentation = alimentation.alimentation_name";
-                    
         try {
             $statement = $this->getPDO()->query($query);
         } catch (PDOException $PDOException) {
