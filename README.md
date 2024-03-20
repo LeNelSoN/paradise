@@ -1,31 +1,25 @@
 # Paradise API
 
-Paradise API is a RESTful Application Programming Interface (API) designed for interactive management of animals in a zoo. It provides a range of features allowing users to perform various operations.
+Paradise API is a RESTful Application Programming Interface (API) designed for the interactive management of animals in a zoo. It provides a range of features allowing users to perform various operations, including CRUD (Create, Read, Update, Delete) operations on animals.
 
 ## API Usage
 
-#### Get hello world message
+### Get hello world message
 
 ```http
   GET /hello
 ```
 
-#### CRUD animals
+### API Documentation with Swagger UI
 
-```http
-  POST /animals
-  GET /animals/${id}
-  PUT /animals/${id}
-  DELETE /animals/${id}
-```
+Interactive API documentation is available via Swagger UI. This allows you to visualize and interact with the API's resources without having any of the implementation logic in place.
 
-| Method    | Parameter | Type     | Description               |
-| :-------- | :-------- | :------- | :------------------------ |
-| POST      | **None**  | -        | -                         |
-| GET       | `id`      | `int`    | **Optional** Id of animal |
-| PUT       | `id`      | `int`    | Id of animal              |
-| DELETE    | `id`      | `int`    | Id of animal              |
+To access Swagger UI:
 
+Ensure the application is running.
+Open a browser and navigate to  <http://localhost:8080/swagger-ui>.
+
+This interface will allow you to directly test the API endpoints.
 
 ## Running Locally with Docker
 
@@ -56,15 +50,19 @@ Docker Compose is usually included with modern Docker installations. If not, fol
 ```bash
   make up
 ```
+
 ### 6. Access the Application
+
 The application will be accessible at http://localhost:8080.
 
 ### 7. Stop Docker Containers
+
 When you're done, stop the Docker containers.
 
 ```bash
   make down
 ```
+
 #### Docker Compose Version
 
 Make sure you have Docker Compose installed on your machine. 

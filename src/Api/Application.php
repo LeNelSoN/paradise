@@ -16,6 +16,14 @@ class Application {
     private array $routeList;
     private String $pathParam;
 
+    /**
+     * Constructor
+     * 
+     * Load the routes and the environment variables
+     * 
+     * @package Api
+     * @author valentin
+     */
     public function __construct()
     {
         $dotenv = Dotenv::createImmutable('/var/www/html');
@@ -24,6 +32,13 @@ class Application {
         $this->routeList = require_once '/var/www/html/src/Api/Configuration/Routes.php';
     }
     
+    /**
+     * Run the application
+     * 
+     * @package Api
+     * @category Application
+     * @author valentin
+     */
     public function run()
     {
         try{
@@ -33,6 +48,11 @@ class Application {
         }
     }
     
+    /**
+     * Handle the routes
+     * 
+     * @package Api
+     */
     private function handleRoutes(): void
     {
         $uri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
@@ -57,6 +77,13 @@ class Application {
         }
     }
 
+    /**
+     * Match the route with the request
+     * 
+     * @param String $uri The request URI
+     * @param String $method The request method
+     * @return array The route configuration
+     */
     private function matchRoute(String $uri, String $method): array
     {
         $route = [];

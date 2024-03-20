@@ -1,0 +1,760 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Paradise API",
+        "description": "Une API pour accéder aux fonctionnalités de Paradise",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/hello": {
+            "get": {
+                "summary": "Renvoie un message 'Hello, World!'",
+                "description": "Opération qui traite une requête GET et renvoie un message 'Hello, World!'.",
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hello, World!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/zonesgeographique": {
+            "get": {
+                "summary": "Liste toutes les zones géographiques",
+                "responses": {
+                    "200": {
+                        "description": "Une liste des zones géographiques",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ZoneGeographique"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crée une nouvelle zone géographique",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ZoneGeographique"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Zone géographique créée avec succès"
+                    }
+                }
+            }
+        },
+        "/zonesgeographique/{id}": {
+            "get": {
+                "summary": "Obtient une zone géographique par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de la zone géographique",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ZoneGeographique"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Met à jour une zone géographique par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ZoneGeographique"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Zone géographique mise à jour avec succès"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprime une zone géographique par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Zone géographique supprimée avec succès"
+                    }
+                }
+            }
+        },
+        "/alimentations": {
+            "get": {
+                "summary": "Obtenir toutes les alimentations",
+                "responses": {
+                    "200": {
+                        "description": "Une liste de toutes les alimentations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Alimentation"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Créer une nouvelle alimentation",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Alimentation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Alimentation créée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Alimentation"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alimentations/{id}": {
+            "get": {
+                "summary": "Obtenir une alimentation par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails d'une alimentation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Alimentation"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Mettre à jour une alimentation par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Alimentation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Alimentation mise à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Alimentation"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprimer une alimentation par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Alimentation supprimée"
+                    }
+                }
+            }
+        },
+        "/animals": {
+            "get": {
+                "summary": "Récupérer tous les animaux",
+                "responses": {
+                    "200": {
+                        "description": "Liste de tous les animaux",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Animal"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Créer un nouvel animal",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Animal"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Animal créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Animal"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/animals/{id}": {
+            "get": {
+                "summary": "Récupérer un animal par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de l'animal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Animal"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Mettre à jour un animal",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Animal"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Animal mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Animal"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprimer un animal",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Animal supprimé avec succès"
+                    }
+                }
+            }
+        },
+        "/classes": {
+            "get": {
+                "summary": "Liste toutes les classes",
+                "responses": {
+                    "200": {
+                        "description": "Liste des classes obtenue avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Classe"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crée une nouvelle classe",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Classe"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Classe créée avec succès"
+                    }
+                }
+            }
+        },
+        "/classes/{id}": {
+            "get": {
+                "summary": "Trouve une classe par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails d'une classe",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Classe"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Mise à jour d'une classe par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Classe"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Classe mise à jour avec succès"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprime une classe par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Classe supprimée avec succès"
+                    }
+                }
+            }
+        },
+        "/especes": {
+            "get": {
+                "summary": "Liste toutes les fiches",
+                "responses": {
+                    "200": {
+                        "description": "Une liste des fiches",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Fiche"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crée une nouvelle fiche",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fiche"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Fiche créée avec succès"
+                    }
+                }
+            }
+        },
+        "/especes/{id}": {
+            "get": {
+                "summary": "Obtient une fiche par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails de la fiche",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Fiche"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Met à jour une fiche par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fiche"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Fiche mise à jour avec succès"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprime une fiche par son ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Fiche supprimée avec succès"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Animal": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifiant unique de l'animal"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nom de l'animal"
+                    },
+                    "species": {
+                        "type": "string",
+                        "description": "Espèce de l'animal"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Âge de l'animal"
+                    }
+                },
+                "required": [
+                    "name",
+                    "species"
+                ]
+            },
+            "Alimentation": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "L'ID de l'alimentation"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Le nom de l'alimentation"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "Classe": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "L'ID unique de la classe"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Le nom de la classe"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "Fiche": {
+                "type": "object",
+                "properties": {
+                    "specieName": {
+                        "type": "string",
+                        "description": "Nom de l'espèce"
+                    },
+                    "classeId": {
+                        "type": "string",
+                        "description": "Identifiant unique de la classe à laquelle l'espèce appartient",
+                        "nullable": true
+                    },
+                    "alimentationId": {
+                        "type": "string",
+                        "description": "Identifiant unique de l'alimentation de l'espèce",
+                        "nullable": true
+                    },
+                    "poidsMoyen": {
+                        "type": "string",
+                        "description": "Poids moyen de l'espèce",
+                        "nullable": true
+                    },
+                    "longevite": {
+                        "type": "string",
+                        "description": "Longévité moyenne de l'espèce",
+                        "nullable": true
+                    },
+                    "longueur": {
+                        "type": "string",
+                        "description": "Longueur moyenne de l'espèce",
+                        "nullable": true
+                    },
+                    "taille": {
+                        "type": "string",
+                        "description": "Taille moyenne de l'espèce",
+                        "nullable": true
+                    },
+                    "zoneGeographiqueId": {
+                        "type": "string",
+                        "description": "Identifiant unique de la zone géographique où vit l'espèce",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description générale de l'espèce",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "specieName"
+                ],
+                "additionalProperties": false
+            },
+            "ZoneGeographique": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifiant unique de la zone géographique"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nom de la zone géographique"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description de la zone géographique"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "Pays de la zone géographique"
+                    },
+                    "continent": {
+                        "type": "string",
+                        "description": "Continent de la zone géographique"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        }
+    }
+}
