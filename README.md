@@ -10,7 +10,7 @@ Paradise API is a RESTful Application Programming Interface (API) designed for t
   GET /hello
 ```
 
-### API Documentation with Swagger UI
+## API Documentation with Swagger UI
 
 Interactive API documentation is available via Swagger UI. This allows you to visualize and interact with the API's resources without having any of the implementation logic in place.
 
@@ -53,7 +53,7 @@ Docker Compose is usually included with modern Docker installations. If not, fol
 
 ### 6. Access the Application
 
-The application will be accessible at http://localhost:8080.
+The application will be accessible at <http://localhost:8080>.
 
 ### 7. Stop Docker Containers
 
@@ -65,5 +65,5 @@ When you're done, stop the Docker containers.
 
 #### Docker Compose Version
 
-Make sure you have Docker Compose installed on your machine. 
+Make sure you have Docker Compose installed on your machine.
 If you are using a standalone version of Docker Compose, please adjust the `docker compose` variable in the Makefile.
