@@ -10,6 +10,7 @@
             "get": {
                 "summary": "Renvoie un message 'Hello, World!'",
                 "description": "Opération qui traite une requête GET et renvoie un message 'Hello, World!'.",
+                "tags": ["Misc"],
                 "responses": {
                     "200": {
                         "description": "Opération réussie",
@@ -33,6 +34,7 @@
         "/zonesgeographique": {
             "get": {
                 "summary": "Liste toutes les zones géographiques",
+                "tags": ["Zones géographiques"],
                 "responses": {
                     "200": {
                         "description": "Une liste des zones géographiques",
@@ -51,6 +53,7 @@
             },
             "post": {
                 "summary": "Crée une nouvelle zone géographique",
+                "tags": ["Zones géographiques"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -71,6 +74,7 @@
         "/zonesgeographique/{id}": {
             "get": {
                 "summary": "Obtient une zone géographique par son ID",
+                "tags": ["Zones géographiques"],
                 "parameters": [
                     {
                         "name": "id",
@@ -96,6 +100,7 @@
             },
             "put": {
                 "summary": "Met à jour une zone géographique par son ID",
+                "tags": ["Zones géographiques"],
                 "parameters": [
                     {
                         "name": "id",
@@ -124,6 +129,7 @@
             },
             "delete": {
                 "summary": "Supprime une zone géographique par son ID",
+                "tags": ["Zones géographiques"],
                 "parameters": [
                     {
                         "name": "id",
@@ -144,6 +150,7 @@
         "/alimentations": {
             "get": {
                 "summary": "Obtenir toutes les alimentations",
+                "tags": ["Alimentations"],
                 "responses": {
                     "200": {
                         "description": "Une liste de toutes les alimentations",
@@ -162,6 +169,7 @@
             },
             "post": {
                 "summary": "Créer une nouvelle alimentation",
+                "tags": ["Alimentations"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -189,6 +197,7 @@
         "/alimentations/{id}": {
             "get": {
                 "summary": "Obtenir une alimentation par son ID",
+                "tags": ["Alimentations"],
                 "parameters": [
                     {
                         "name": "id",
@@ -214,6 +223,7 @@
             },
             "put": {
                 "summary": "Mettre à jour une alimentation par son ID",
+                "tags": ["Alimentations"],
                 "parameters": [
                     {
                         "name": "id",
@@ -249,6 +259,7 @@
             },
             "delete": {
                 "summary": "Supprimer une alimentation par son ID",
+                "tags": ["Alimentations"],
                 "parameters": [
                     {
                         "name": "id",
@@ -269,6 +280,7 @@
         "/animals": {
             "get": {
                 "summary": "Récupérer tous les animaux",
+                "tags": ["Animals"],
                 "responses": {
                     "200": {
                         "description": "Liste de tous les animaux",
@@ -287,6 +299,7 @@
             },
             "post": {
                 "summary": "Créer un nouvel animal",
+                "tags": ["Animals"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -314,6 +327,7 @@
         "/animals/{id}": {
             "get": {
                 "summary": "Récupérer un animal par son ID",
+                "tags": ["Animals"],
                 "parameters": [
                     {
                         "name": "id",
@@ -339,6 +353,7 @@
             },
             "put": {
                 "summary": "Mettre à jour un animal",
+                "tags": ["Animals"],
                 "parameters": [
                     {
                         "name": "id",
@@ -374,6 +389,7 @@
             },
             "delete": {
                 "summary": "Supprimer un animal",
+                "tags": ["Animals"],
                 "parameters": [
                     {
                         "name": "id",
@@ -394,6 +410,7 @@
         "/classes": {
             "get": {
                 "summary": "Liste toutes les classes",
+                "tags": ["Classes"],
                 "responses": {
                     "200": {
                         "description": "Liste des classes obtenue avec succès",
@@ -412,6 +429,7 @@
             },
             "post": {
                 "summary": "Crée une nouvelle classe",
+                "tags": ["Classes"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -432,6 +450,7 @@
         "/classes/{id}": {
             "get": {
                 "summary": "Trouve une classe par son ID",
+                "tags": ["Classes"],
                 "parameters": [
                     {
                         "name": "id",
@@ -457,6 +476,7 @@
             },
             "put": {
                 "summary": "Mise à jour d'une classe par son ID",
+                "tags": ["Classes"],
                 "parameters": [
                     {
                         "name": "id",
@@ -485,6 +505,7 @@
             },
             "delete": {
                 "summary": "Supprime une classe par son ID",
+                "tags": ["Classes"],
                 "parameters": [
                     {
                         "name": "id",
@@ -505,6 +526,7 @@
         "/especes": {
             "get": {
                 "summary": "Liste toutes les fiches",
+                "tags": ["Especes"],
                 "responses": {
                     "200": {
                         "description": "Une liste des fiches",
@@ -523,6 +545,7 @@
             },
             "post": {
                 "summary": "Crée une nouvelle fiche",
+                "tags": ["Especes"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -543,6 +566,7 @@
         "/especes/{id}": {
             "get": {
                 "summary": "Obtient une fiche par son ID",
+                "tags": ["Especes"],
                 "parameters": [
                     {
                         "name": "id",
@@ -568,6 +592,7 @@
             },
             "put": {
                 "summary": "Met à jour une fiche par son ID",
+                "tags": ["Especes"],
                 "parameters": [
                     {
                         "name": "id",
@@ -595,6 +620,7 @@
                 }
             },
             "delete": {
+                "tags": ["Especes"],
                 "summary": "Supprime une fiche par son ID",
                 "parameters": [
                     {

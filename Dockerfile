@@ -18,10 +18,13 @@ USER www-data
 RUN composer update && composer install
 USER root
 
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY /config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# Debugging
+# RUN pecl install xdebug && docker-php-ext-enable xdebug
+# COPY /config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 EXPOSE 80
-EXPOSE 9000
+
+# For Xdebug
+# EXPOSE 9000
 
 CMD ["apache2-foreground"]
